@@ -1,0 +1,64 @@
+[
+{
+    "header":{"enable": true, "method": "post", "url": "bear"},
+    "variable": "",
+    "body": {"bear_type":"BLACK","bear_age":17.5,"bear_name":"MIKHAIL"},
+    "schema": {
+        "type": "number",
+        "minimum": 1
+    },
+    "save response": "bear_id"
+},
+{
+    "header":{"enable": true, "method": "get", "url": "/bear/{bear_id}"},
+    "variable": "bear_id",
+    "body": {},
+    "schema": {
+        "type": "object",
+        "properties":{
+  	        "bear_id": {"type" : "number", "minimum": 1},
+	        "bear_type" : {"type" : "string", "pattern": "^BLACK$"},
+            "bear_name": {"type" : "string", "pattern": "^MIKHAIL$"},
+            "bear_age": {"type" : "number", "minimum": 17.5, "maximum": 17.5}
+        },
+        "required": ["bear_id", "bear_type", "bear_name","bear_age"],
+        "additionalProperties": false
+    },
+    "save response": ""
+},
+{
+    "header":{"enable": true, "method": "put", "url": "/bear/{bear_id}"},
+    "variable": "bear_id",
+    "body": {"bear_type":"BLACK","bear_age":17.5,"bear_name":"MIKHAILO"},
+    "schema": {
+            "type" : "string", "pattern": "OK"
+        },
+    "save response": ""
+},
+{
+    "header":{"enable": true, "method": "get", "url": "/bear/{bear_id}"},
+    "variable": "bear_id",
+    "body": {},
+    "schema": {
+        "type": "object",
+        "properties":{
+  	        "bear_id": {"type" : "number", "minimum": 1},
+	        "bear_type" : {"type" : "string", "pattern": "^BLACK$"},
+            "bear_name": {"type" : "string", "pattern": "^MIKHAILO$"},
+            "bear_age": {"type" : "number", "minimum": 17.5, "maximum": 17.5}
+        },
+        "required": ["bear_id", "bear_type", "bear_name","bear_age"],
+        "additionalProperties": false
+    },
+    "save response": ""
+},
+{
+    "header":{"enable": true, "method": "delete", "url": "/bear/{bear_id}"},
+    "variable": "bear_id",
+    "body": {},
+    "schema": {
+            "type" : "string", "pattern": "OK"
+        },
+    "save response": ""
+}
+]

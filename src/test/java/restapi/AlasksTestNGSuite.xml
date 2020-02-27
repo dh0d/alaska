@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="com.alaska_restapitest_jar_1.0-SNAPSHOT">
+    <test name="Create bear test" preserve-order="true">
+        <classes>            
+            <class name="restapi.CreateBearTest"/>
+            <class name="restapi.ChangeBearTest"/>
+            <class name="restapi.MultipleItemsTest"/>
+            <class name="restapi.NegativeCreationTest"/>
+            <class name="restapi.UniversalTest"/>
+        </classes>
+    </test>
+</suite>

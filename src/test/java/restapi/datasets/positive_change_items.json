@@ -1,0 +1,9 @@
+[
+{"bear_type":"BLACK","bear_age":17.5,"bear_name":"new bear"},
+{"bear_type":"BROWN","bear_name":"new bear","bear_age":17.5},
+{"bear_type":"BROWN","bear_name":"new bear","bear_age":17},
+{"bear_type":"BROWN","bear_name":"new bear","bear_age":0},
+{"bear_type":"POLAR","bear_name":"new bear","bear_age":0},
+{"bear_type":"POLAR","bear_name":"bear1","bear_age":0},
+{"bear_type":"GUMMY","bear_name":"bear 1","bear_age":0}
+]

@@ -1,0 +1,19 @@
+[
+{"bear_type":"UNKNOWNTYPE","bear_age":17,"bear_name":"MIKHAIL"},
+{"bear_type":"","bear_age":17,"bear_name":"MIKHAIL"},
+{"bear_type":10000,"bear_age":17,"bear_name":"MIKHAIL"},
+{"bear_type":null,"bear_age":17,"bear_name":"MIKHAIL"},
+{"bear_type":true,"bear_age":17,"bear_name":"MIKHAIL"},
+{"bear_type":"BROWN","bear_name":123,"bear_age":0},
+{"bear_type":"POLAR","bear_name":null,"bear_age":0},
+{"bear_type":"BROWN","bear_name":"Teddy","bear_age":"10"},
+{"bear_type":"BROWN","bear_name":"Teddy","bear_age":"young"},
+{"bear_type":"BROWN","bear_name":"Teddy","bear_age":""},
+{"bear_type":"BROWN","bear_name":"Teddy","bear_age":true},
+{"bear_type":"BROWN","bear_name":"Teddy","bear_age":null},
+{"bear_type":"BROWN","bear_name":null,"bear_age":null},
+{"bear_name":"Teddy","bear_age":0},
+{"bear_type":"BROWN","bear_age":0},
+{"bear_type":"POLAR","bear_name":"Big ma"},
+{}
+]

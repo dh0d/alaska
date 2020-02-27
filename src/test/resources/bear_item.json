@@ -1,0 +1,11 @@
+{
+	"type": "object",
+        "properties":{
+  	        "bear_id": {"type" : "number", "minimum": 1},
+	        "bear_type" : {"type" : "string"},
+            	"bear_name":  {"type" : "string"},
+		"bear_age": {"type" : "number", "minimum": 0}
+        },
+        "required": ["bear_id", "bear_type", "bear_name","bear_age"],
+        "additionalProperties": false
+}
