@@ -1,6 +1,6 @@
 [
 {
-    "header":{"enable": true, "method": "post", "url": "bear"},
+    "header":{"enable": true, "method": "post", "url": "bear", "code": 200},
     "variable": "",
     "body": {"bear_type":"BLACK","bear_age":17.5,"bear_name":"MIKHAIL"},
     "schema": {
@@ -10,7 +10,7 @@
     "save response": "bear_id"
 },
 {
-    "header":{"enable": true, "method": "get", "url": "/bear/{bear_id}"},
+    "header":{"enable": true, "method": "get", "url": "/bear/{bear_id}", "code": 200},
     "variable": "bear_id",
     "body": {},
     "schema": {
@@ -27,7 +27,7 @@
     "save response": ""
 },
 {
-    "header":{"enable": true, "method": "put", "url": "/bear/{bear_id}"},
+    "header":{"enable": true, "method": "put", "url": "/bear/{bear_id}", "code": 200},
     "variable": "bear_id",
     "body": {"bear_type":"BLACK","bear_age":17.5,"bear_name":"MIKHAILO"},
     "schema": {
@@ -36,7 +36,7 @@
     "save response": ""
 },
 {
-    "header":{"enable": true, "method": "get", "url": "/bear/{bear_id}"},
+    "header":{"enable": true, "method": "get", "url": "/bear/{bear_id}", "code": 200},
     "variable": "bear_id",
     "body": {},
     "schema": {
@@ -53,7 +53,7 @@
     "save response": ""
 },
 {
-    "header":{"enable": true, "method": "delete", "url": "/bear/{bear_id}"},
+    "header":{"enable": true, "method": "delete", "url": "/bear/{bear_id}", "code": 200},
     "variable": "bear_id",
     "body": {},
     "schema": {

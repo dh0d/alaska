@@ -30,6 +30,7 @@ public class UniversalTest {
     public void Universal(JsonObject item) throws IllegalAccessException, InterruptedException {
         String url = item.get("header").getAsJsonObject().getAsJsonPrimitive("url").getAsString();
         String method = item.get("header").getAsJsonObject().getAsJsonPrimitive("method").getAsString();
+        Integer code = item.get("header").getAsJsonObject().getAsJsonPrimitive("code").getAsInt();
         String schema = item.get("schema").toString();
         String variable = item.get("variable").getAsString();
         boolean test_enabled = item.get("header").getAsJsonObject().getAsJsonPrimitive("enable").getAsBoolean();
@@ -44,25 +45,25 @@ public class UniversalTest {
                 // POST a new bear and check the response code and schema
                 res = given().spec(requestSpec).body(item.get("body"),ObjectMapperType.GSON)
                     .when().post(url)
-                    .then().statusCode(200).body(matchesJsonSchema(schema));
+                    .then().statusCode(code).body(matchesJsonSchema(schema));
                 break;
             case "get":
                 // GET a bear info and check the response code and schema
                 res = given().spec(requestSpec).pathParams(variable, variable_set.get(variable).getAsString())
                     .when().get(url)
-                    .then().statusCode(200).body(matchesJsonSchema(schema));
+                    .then().statusCode(code).body(matchesJsonSchema(schema));
                 break;
             case "delete":
                 // DELETE a bear item and check the response code
                 res = given().spec(requestSpec).pathParams(variable, variable_set.get(variable).getAsString())
                     .when().delete(url)
-                    .then().statusCode(200);
+                    .then().statusCode(code);
                 break;
             case "put":
                 // DELETE a bear item and check the response code
                 res = given().spec(requestSpec).pathParams(variable, variable_set.get(variable).getAsString()).body(item.get("body"),ObjectMapperType.GSON)
                     .when().put(url)
-                    .then().statusCode(200);
+                    .then().statusCode(code);
                 break;
         }
         
