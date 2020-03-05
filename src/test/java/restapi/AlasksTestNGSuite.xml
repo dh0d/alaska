@@ -1,13 +1,29 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="com.alaska_restapitest_jar_1.0-SNAPSHOT"  thread-count="1">
+<suite name="Alaska bear" >
     <parameter name="server" value="http://192.168.1.2" />
-    <test name="Alaska bear" preserve-order="true">
+    <test name="Create bear">
         <classes>            
             <class name="restapi.CreateBearTest"/>
+        </classes>
+    </test>
+    <test name="Change bear">
+        <classes>            
             <class name="restapi.ChangeBearTest"/>
+        </classes>
+    </test>
+    <test name="Multiple bear">
+        <classes>
             <class name="restapi.MultipleItemsTest"/>
+        </classes>
+    </test>
+    <test name="Negative test">
+        <classes>
             <class name="restapi.NegativeCreationTest"/>
+        </classes>
+    </test>
+    <test name="Universal test">
+        <classes>
             <class name="restapi.UniversalTest"/>
         </classes>
     </test>
