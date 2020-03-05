@@ -14,13 +14,15 @@ import io.restassured.specification.RequestSpecification;
 
 import org.testng.Assert;
 import org.testng.SkipException;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class MultipleItemsTest {
-    private final RequestSpecification requestSpec = new RequestSpecBuilder().setBaseUri("http://192.168.1.2").setPort(8091)
-            .setContentType(ContentType.JSON).build();
-    
+    private RequestSpecification requestSpec;
+    private String ServerAddress = "http://localhost";
+
     public final String bears = "/bear/{id}";
     JsonObject variable_set = new JsonObject();
     private String FirstId;
@@ -36,9 +38,15 @@ public class MultipleItemsTest {
         this.SecondItem[0] = "{ \"bear_type\": \"POLAR\", \"bear_name\": \"UMKA\", \"bear_age\":2 }";
         this.SecondItem[1] = "{ \"bear_type\": \"BROWN\", \"bear_name\": \"Paddington\", \"bear_age\":12 }";
     }
-    @BeforeTest
-    public void CheckStartConditions() {
+    @BeforeClass
+    @Parameters ({"server"})
+    public void CheckStartConditions(@Optional String server) {
         System.out.println("MultipleItemsTest. Check start conitions" );
+        if (server != null) {
+            ServerAddress = server;
+        }
+        requestSpec = new RequestSpecBuilder().setBaseUri(ServerAddress).setPort(8091)
+        .setContentType(ContentType.JSON).build();
         given().spec(requestSpec).get("bear")
         .then().assertThat().statusCode(200).body(matchesJsonSchemaInClasspath("empty_list.json"));
     }

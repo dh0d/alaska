@@ -21,31 +21,50 @@ import java.util.List;
 import org.testng.Assert;
 import org.testng.SkipException;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Factory;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class CreateBearTest {
     private JsonObject item;
-    RequestSpecification requestSpec = new RequestSpecBuilder().setBaseUri("http://192.168.1.2").setPort(8091)
-            .setContentType(ContentType.JSON).build();
+    RequestSpecification requestSpec;
+    private String ServerAddress = "http://localhost";
     
     public final static String bears = "/bear/{id}";
     private String id;
-
+    
 
     @Factory(dataProvider = "getBearItem")
     public CreateBearTest(JsonObject item){
         this.item = item;
         this.id = "";
     }
-
+    
     @BeforeTest
-    public void CheckStartConditions() {
+    @Parameters ({"server"})
+    public void CheckStartConditions(@Optional String server) {
+        if (server != null) {
+            ServerAddress = server;
+        }
+        requestSpec = new RequestSpecBuilder().setBaseUri(ServerAddress).setPort(8091)
+        .setContentType(ContentType.JSON).build();
         System.out.println("CreateBearTest. Check start conitions" );
         given().spec(requestSpec).get("bear")
         .then().assertThat().statusCode(200).body(matchesJsonSchemaInClasspath("empty_list.json"));
+    }
+
+    @BeforeClass
+    @Parameters ({"server"})
+    public void Init(@Optional String server){
+        if (server != null) {
+            ServerAddress = server;
+        }
+        requestSpec = new RequestSpecBuilder().setBaseUri(ServerAddress).setPort(8091)
+        .setContentType(ContentType.JSON).build();        
     }
     
     @Test()

@@ -14,12 +14,14 @@ import io.restassured.specification.RequestSpecification;
 
 import org.testng.Assert;
 import org.testng.SkipException;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class ChangeBearTest {
-    private final RequestSpecification requestSpec = new RequestSpecBuilder().setBaseUri("http://192.168.1.2").setPort(8091)
-            .setContentType(ContentType.JSON).build();
-    
+    private RequestSpecification requestSpec;
+    private String ServerAddress = "http://localhost";
     public final String bears = "/bear/{id}";
     JsonObject variable_set = new JsonObject();
     private String id;
@@ -30,7 +32,17 @@ public class ChangeBearTest {
         String bear = "{ \"bear_type\": \"BLACK\", \"bear_name\": \"MIKHAIL\", \"bear_age\":17.5 }";
         this.InitBear = new JsonParser().parse(bear).getAsJsonObject();
     }
-
+    
+    @BeforeClass
+    @Parameters ({"server"})
+    public void Init(@Optional String server){
+        if (server != null) {
+            ServerAddress = server;
+        }
+        requestSpec = new RequestSpecBuilder().setBaseUri(ServerAddress).setPort(8091)
+        .setContentType(ContentType.JSON).build();        
+    }
+    
     @Test(priority = 1)
     public void CheckStartConditions() {
         System.out.println("ChangeBearTest. Check start conitions" );

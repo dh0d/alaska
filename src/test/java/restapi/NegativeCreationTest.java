@@ -10,18 +10,26 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 import io.restassured.specification.RequestSpecification;
 
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class NegativeCreationTest {
-    private final RequestSpecification requestSpec = new RequestSpecBuilder().setBaseUri("http://192.168.1.2").setPort(8091)
-            .setContentType(ContentType.JSON).build();
+    private RequestSpecification requestSpec;
+    private String ServerAddress = "http://localhost";
     
     public NegativeCreationTest() {
     }    
         
     @BeforeClass
-    public void CheckConditions() {
+    @Parameters ({"server"})
+    public void CheckConditions(@Optional String server) {
         System.out.println("NegativeCreationTest. Check start conitions" );
+        if (server != null) {
+            ServerAddress = server;
+        }
+        requestSpec = new RequestSpecBuilder().setBaseUri(ServerAddress).setPort(8091)
+        .setContentType(ContentType.JSON).build();
         given().spec(requestSpec).get("bear")
         .then().assertThat().statusCode(200).body(matchesJsonSchemaInClasspath("empty_list.json"));
     }
