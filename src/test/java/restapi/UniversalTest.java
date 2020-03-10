@@ -2,36 +2,15 @@ package restapi;
 
 import com.google.gson.JsonObject;
 import static io.restassured.RestAssured.given;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.http.ContentType;
 import io.restassured.mapper.ObjectMapperType;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import io.restassured.response.ValidatableResponse;
-import io.restassured.specification.RequestSpecification;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
+
 import org.testng.annotations.Test;
 
 
-public class UniversalTest {
-    private RequestSpecification requestSpec;
-    private String ServerAddress = "http://localhost";
+public class UniversalTest extends CommonClass{
     private final JsonObject variable_set = new JsonObject();
-    
-    @BeforeClass
-    @Parameters ({"server"})
-    public void CheckConditions(@Optional String server) {
-        System.out.println("CheckConditions" );
-        if (server != null) {
-            ServerAddress = server;
-        }
-        requestSpec = new RequestSpecBuilder().setBaseUri(ServerAddress).setPort(8091)
-        .setContentType(ContentType.JSON).build();     
-        given().spec(requestSpec).get("bear")
-        .then().assertThat().statusCode(200).body(matchesJsonSchemaInClasspath("empty_list.json"));
-    }
     
     @Test(dataProvider = "BearProvider", dataProviderClass = DataProviderSource.class)
     @TestDataProviderParameters(path = "src\\test\\java\\restapi\\datasets\\universal_template.json")

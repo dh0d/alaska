@@ -4,12 +4,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import static io.restassured.RestAssured.given;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.http.ContentType;
 import io.restassured.mapper.ObjectMapperType;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import io.restassured.response.ValidatableResponse;
-import io.restassured.specification.RequestSpecification;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -20,21 +17,12 @@ import java.util.List;
 
 import org.testng.Assert;
 import org.testng.SkipException;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Factory;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-public class CreateBearTest {
+public class CreateBearTest extends CommonClass{
     private JsonObject item;
-    RequestSpecification requestSpec;
-    private String ServerAddress = "http://localhost";
-    
-    public final static String bears = "/bear/{id}";
     private String id;
     
 
@@ -42,29 +30,6 @@ public class CreateBearTest {
     public CreateBearTest(JsonObject item){
         this.item = item;
         this.id = "";
-    }
-    
-    @BeforeTest
-    @Parameters ({"server"})
-    public void CheckStartConditions(@Optional String server) {
-        if (server != null) {
-            ServerAddress = server;
-        }
-        requestSpec = new RequestSpecBuilder().setBaseUri(ServerAddress).setPort(8091)
-        .setContentType(ContentType.JSON).build();
-        System.out.println("CreateBearTest. Check start conitions" );
-        given().spec(requestSpec).get("bear")
-        .then().assertThat().statusCode(200).body(matchesJsonSchemaInClasspath("empty_list.json"));
-    }
-
-    @BeforeClass
-    @Parameters ({"server"})
-    public void Init(@Optional String server){
-        if (server != null) {
-            ServerAddress = server;
-        }
-        requestSpec = new RequestSpecBuilder().setBaseUri(ServerAddress).setPort(8091)
-        .setContentType(ContentType.JSON).build();        
     }
     
     @Test()
@@ -106,13 +71,6 @@ public class CreateBearTest {
         Assert.assertEquals(resp.extract().asString(),"OK");
     }
 
-    @AfterTest
-    public void AfterwardCheck() {
-        System.out.println("CreateBearTest. Afterward checking" );
-        given().spec(requestSpec).get("bear")
-        .then().assertThat().statusCode(200).body(matchesJsonSchemaInClasspath("empty_list.json"));
-    }
-    
     @DataProvider
     public static Iterator<Object[]> getBearItem() throws FileNotFoundException {
         BufferedReader reader = new BufferedReader(new FileReader("src\\test\\java\\restapi\\datasets\\positive_bear_items.json"));

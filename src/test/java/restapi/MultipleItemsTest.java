@@ -5,26 +5,15 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import static io.restassured.RestAssured.given;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.http.ContentType;
 import io.restassured.mapper.ObjectMapperType;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import io.restassured.response.ValidatableResponse;
-import io.restassured.specification.RequestSpecification;
 
 import org.testng.Assert;
 import org.testng.SkipException;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-public class MultipleItemsTest {
-    private RequestSpecification requestSpec;
-    private String ServerAddress = "http://localhost";
-
-    public final String bears = "/bear/{id}";
-    JsonObject variable_set = new JsonObject();
+public class MultipleItemsTest extends CommonClass{
     private String FirstId;
     private String SecondId;
     String[] FirstItem = new String[2];
@@ -37,18 +26,6 @@ public class MultipleItemsTest {
         this.FirstItem[1] = "{ \"bear_type\": \"BROWN\", \"bear_name\": \"Correct name\", \"bear_age\":10 }";
         this.SecondItem[0] = "{ \"bear_type\": \"POLAR\", \"bear_name\": \"UMKA\", \"bear_age\":2 }";
         this.SecondItem[1] = "{ \"bear_type\": \"BROWN\", \"bear_name\": \"Paddington\", \"bear_age\":12 }";
-    }
-    @BeforeClass
-    @Parameters ({"server"})
-    public void CheckStartConditions(@Optional String server) {
-        System.out.println("MultipleItemsTest. Check start conitions" );
-        if (server != null) {
-            ServerAddress = server;
-        }
-        requestSpec = new RequestSpecBuilder().setBaseUri(ServerAddress).setPort(8091)
-        .setContentType(ContentType.JSON).build();
-        given().spec(requestSpec).get("bear")
-        .then().assertThat().statusCode(200).body(matchesJsonSchemaInClasspath("empty_list.json"));
     }
     
     @Test(priority = 1)

@@ -5,25 +5,15 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import static io.restassured.RestAssured.given;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.http.ContentType;
 import io.restassured.mapper.ObjectMapperType;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import io.restassured.response.ValidatableResponse;
-import io.restassured.specification.RequestSpecification;
 
 import org.testng.Assert;
 import org.testng.SkipException;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-public class ChangeBearTest {
-    private RequestSpecification requestSpec;
-    private String ServerAddress = "http://localhost";
-    public final String bears = "/bear/{id}";
-    JsonObject variable_set = new JsonObject();
+public class ChangeBearTest extends CommonClass{
     private String id;
     private final JsonObject InitBear;
     
@@ -33,24 +23,7 @@ public class ChangeBearTest {
         this.InitBear = new JsonParser().parse(bear).getAsJsonObject();
     }
     
-    @BeforeClass
-    @Parameters ({"server"})
-    public void Init(@Optional String server){
-        if (server != null) {
-            ServerAddress = server;
-        }
-        requestSpec = new RequestSpecBuilder().setBaseUri(ServerAddress).setPort(8091)
-        .setContentType(ContentType.JSON).build();        
-    }
-    
     @Test(priority = 1)
-    public void CheckStartConditions() {
-        System.out.println("ChangeBearTest. Check start conitions" );
-        given().spec(requestSpec).get("bear")
-        .then().assertThat().statusCode(200).body(matchesJsonSchemaInClasspath("empty_list.json"));
-    }
-
-    @Test(priority = 2)
     public void CreateBear() {
         System.out.println("ChangeBearTest. Creating a bear. POST to /bear: " + this.InitBear.toString());
 
@@ -60,7 +33,7 @@ public class ChangeBearTest {
         this.id = resp.extract().body().asString();
     }
     
-    @Test(priority = 3)
+    @Test(priority = 2)
     public void CheckBear() {
         //Check id is got on creation step
         if("".equals(this.id))
@@ -77,7 +50,7 @@ public class ChangeBearTest {
         Assert.assertEquals(bear, this.InitBear);
     }
     
-    @Test(priority = 4, dataProvider = "BearProvider", dataProviderClass = DataProviderSource.class)
+    @Test(priority = 3, dataProvider = "BearProvider", dataProviderClass = DataProviderSource.class)
     @TestDataProviderParameters(path = "src\\test\\java\\restapi\\datasets\\positive_change_items.json")
     public void ChangeBear(JsonObject item) {
         //Check id is got on creation step
@@ -99,7 +72,7 @@ public class ChangeBearTest {
         Assert.assertEquals(bear, item);
     }
 
-    @Test(priority = 5)
+    @Test(priority = 4)
     public void DeleteBear() {
         System.out.println("ChangeBearTest. Deleting the bear. DELETE to /bear/" + this.id);
 
@@ -108,10 +81,4 @@ public class ChangeBearTest {
         org.testng.Assert.assertEquals(resp.extract().asString(),"OK");
     }
 
-    @Test(priority = 6)
-    public void AfterwardCheck() {
-        System.out.println("ChangeBearTest. Afterward checking" );
-        given().spec(requestSpec).get("bear")
-        .then().assertThat().statusCode(200).body(matchesJsonSchemaInClasspath("empty_list.json"));
-    }
 }
