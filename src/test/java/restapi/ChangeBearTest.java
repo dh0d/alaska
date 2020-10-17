@@ -51,7 +51,7 @@ public class ChangeBearTest extends CommonClass{
     }
     
     @Test(priority = 3, dataProvider = "BearProvider", dataProviderClass = DataProviderSource.class)
-    @TestDataProviderParameters(path = "src\\test\\java\\restapi\\datasets\\positive_change_items.json")
+    @TestDataProviderParameters(path = "src/test/java/restapi/datasets/positive_change_items.json")
     public void ChangeBear(JsonObject item) {
         //Check id is got on creation step
         if("".equals(this.id))

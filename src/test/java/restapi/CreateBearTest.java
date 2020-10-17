@@ -73,7 +73,7 @@ public class CreateBearTest extends CommonClass{
 
     @DataProvider
     public static Iterator<Object[]> getBearItem() throws FileNotFoundException {
-        BufferedReader reader = new BufferedReader(new FileReader("src\\test\\java\\restapi\\datasets\\positive_bear_items.json"));
+        BufferedReader reader = new BufferedReader(new FileReader("src/test/java/restapi/datasets/positive_bear_items.json"));
         JsonElement jelement = new JsonParser().parse(reader);
         List<Object[]> data = new ArrayList<>();
         for (JsonElement test : jelement.getAsJsonArray()){

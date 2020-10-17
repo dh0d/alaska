@@ -14,7 +14,7 @@ public class NegativeCreationTest extends CommonClass{
     }    
         
     @Test(priority = 1, dataProvider = "BearProvider", dataProviderClass = DataProviderSource.class)
-    @TestDataProviderParameters(path = "src\\test\\java\\restapi\\datasets\\negative_bear_items.json")
+    @TestDataProviderParameters(path = "src/test/java/restapi/datasets/negative_bear_items.json")
     public void InsertBear(JsonObject item) {
         //Check id is got on creation step
         System.out.println("NegativeCreationTest. Creating a bear. POST to /bear: " + item.toString());

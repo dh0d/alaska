@@ -13,7 +13,7 @@ public class UniversalTest extends CommonClass{
     private final JsonObject variable_set = new JsonObject();
     
     @Test(dataProvider = "BearProvider", dataProviderClass = DataProviderSource.class)
-    @TestDataProviderParameters(path = "src\\test\\java\\restapi\\datasets\\universal_template.json")
+    @TestDataProviderParameters(path = "src/test/java/restapi/datasets/universal_template.json")
     public void Universal(JsonObject item) throws IllegalAccessException, InterruptedException {
         String url = item.get("header").getAsJsonObject().getAsJsonPrimitive("url").getAsString();
         String method = item.get("header").getAsJsonObject().getAsJsonPrimitive("method").getAsString();
